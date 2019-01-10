@@ -1,0 +1,86 @@
+<?php
+
+session_start();
+
+
+
+$db = mysqli_connect("localhost", "root", "", "legitimate");
+
+if (isset($_POST['register_btn'])) {
+session_start();
+$Username = mysql_real_escape_string($_POST['username']);
+$Email = mysql_real_escape_string($_POST['Email']);
+$password = mysql_real_escape_string($_POST['password']);
+$Password2 = mysql_real_escape_string($_POST['Password2']);
+
+if ($password == $password2) {
+
+$password = md5($password);
+$sql = " INSERT INTO form(username, email, password) values('$username', '$email', '$password')";
+mysqli_query($db, $sql);
+$_session['message] = "you are now logged in";
+$_session['username'] = $username;
+header("location: home.php");
+
+
+}else{
+$session['message'] = "the two passwords does not match";
+
+}
+}
+
+?>
+
+
+ 
+
+<!doctype html>
+<html>
+<head> 
+<title>Register login and logout user php mysql</title>
+  </head>
+  <body>
+  <div class="header">
+  <h2> Register, login and logout user php mysql</h2>
+  </div>
+  
+  <form method="post" action="register.php">
+  <table>
+  
+  <tr>
+  </tr>
+  
+  <td>Username:</td>
+  <td><input type="text" name= "username" class = "textinput"></td>
+  
+  <tr>
+  </tr>
+  
+  <td>Password:</td>
+  <td><input type="password" name= "Password" class = "textinput"></td>
+  
+  <tr>
+  </tr>
+  
+  <td>Email:</td>
+  <td><input type="Email" name= "Email" class = "textinput"></td>
+  
+  <tr>
+  </tr>
+  
+  <td>Password again:</td>
+  <td><input type="password" name= "Password2" class = "textinput"></td>
+  
+  <tr>
+  </tr>
+  
+  <td></td>
+  <td><input type="submit" name= "register_btn" value = "Register"></td>
+  
+  
+   
+  
+  </table>
+  </form>
+  </body>
+  </html> 
